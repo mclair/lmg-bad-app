@@ -85,8 +85,15 @@ axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
                         * should be referring to the post title.
                         */
                        if (response[i].length < 50) {
-                //This could be much shorter with a ternary operator
-                //Whether or not that's clearer is somewhat in the eye of the reader
+                /**
+                 * This could be much shorter with a ternary operator
+                 * Whether or not that's clearer is somewhat in the eye of the reader
+                 * 
+                 * The logic for this is also inverted. includes returns true/false depending
+                 * if the string is found. The false path indicates the post name contains Linus
+                 * when it doesn't.
+                 */
+
                 if (response[i].includes('Linus')) {
                     /**
                      * can't say I've ever seen `required` before. Looks to be an alias

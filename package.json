@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "startBetter": "node index-corrected.js",
+    "startBetter": "echo \"Look at the improvements branch\" && exit 1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
