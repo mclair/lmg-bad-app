@@ -1,16 +1,33 @@
 
 var axios = require('axios');
+/**
+ * Express is not utilized in any way. It should not be imported
+ * Also, it's missing from the package.json, preventing the file from running.
+ * This can be resolved by removing it, or adding a dependency on express
+ */
 var express = require('express');
 
+//Again, unused. Unclear why you'd want this instead of Math.PI
 pi = 3.14;
+ 
 this.boss = 'Luke';
-
+ 
 console.log('===== STARTING APPLICATION =====')
-
+ 
+/** 
+ * Why is this on a timeout? If you want it to be the last thing outputted, 
+ * tie it to an event. With a timeout, you have potentially inconsistent behaviour
+ * based on how the jsonplaceholder server responds or other network inconsistencies
+ */
 setTimeout(() => {
+    //Use string interpolation
     console.log('Dont forget. ' +this.boss + ' is the BOSS');
 }, 500);
-
+ 
+/**
+ * Once again, we can't run with this. `employees` is undefined and prevents the script
+ * from running.
+ */
 console.log('Current Employees:');
 for (var i = 0; i < employees.length; i += 1) {
     if(isMe(employees[i])) {
