@@ -17,29 +17,22 @@ console.log('getting data from API');
 axios.get(`${baseUrl}/posts`).then((pResponse) => {
     let post1Comments = false;
     if (pResponse && pResponse.data) {
-        for (let i = 0; i < pResponse.data.length; i++) {
-            let post = pResponse.data[i];
+        pResponse.data.forEach((post) => {
             if(post.id === 1) {
                 post1Comments = true;
             }
+            
             if (post.title.length < 50) {
-                if (post.title.includes('Linus')) {
-                    console.log('Post is valid');
-                } else {
-                    console.log('Post name contains word Linus');
-                }
+                console.log(post.title.includes('Linus') ? `Post name contains word 'Linus'` : 'Post is valid');
             } else {
                 console.log('Post name is too long');
             }
-        }
+        });
     } else {
         console.log('There are no posts');
     }
 
     if(post1Comments) {
-        console.log('----------');
-        console.log('Comments:');
-
         em.emit(GET_COMMENTS_EVENT, 1);
     } else {
         em.emit(AJAX_COMPLETE_EVENT);
@@ -55,6 +48,8 @@ em.on(GET_COMMENTS_EVENT, function(id) {
         em.emit(AJAX_COMPLETE_EVENT);
         
         if(cResponse && cResponse.data) {
+            console.log('----------');
+            console.log('Comments:');
             cResponse.data.forEach((com) => {
                outputComment(com);
             });
@@ -67,9 +62,11 @@ em.on(GET_COMMENTS_EVENT, function(id) {
 });
 
 function outputComment(com) {
-    console.log(`User ${com.email} wrote:`);
-    console.log(com.body);
-    console.log();
+    if(com) {
+        console.log(`User ${com.email} wrote:`);
+        console.log(com.body);
+        console.log();
+    }
 }
 
 function logError(error, type) {
