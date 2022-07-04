@@ -28,6 +28,9 @@ setTimeout(() => {
  * Once again, we can't run with this. `employees` is undefined and prevents the script
  * from running.
  */
+
+let employees = [];
+
 console.log('Current Employees:');
 for (var i = 0; i < employees.length; i += 1) {
     if(isMe(employees[i])) {
