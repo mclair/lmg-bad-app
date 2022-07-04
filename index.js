@@ -1,35 +1,21 @@
 
-var axios = require('axios');
-var express = require('express');
+let axios = require('axios');
+let events = require('events');
 
-pi = 3.14;
-this.boss = 'Luke';
+let boss = 'Luke';
+let em = new events.EventEmitter();
+let baseUrl = 'https://jsonplaceholder.typicode.com';
 
 console.log('===== STARTING APPLICATION =====')
 
-setTimeout(() => {
-    console.log('Dont forget. ' +this.boss + ' is the BOSS');
-}, 500);
-
-console.log('Current Employees:');
-for (var i = 0; i < employees.length; i += 1) {
-    if(isMe(employees[i])) {
-      console.log(employees[i] + ' - Hey.. Its you!');
-    }
-    else {
-      console.log(employees[i]);
-    }
-}
-
 console.log('getting data from API');
 
-axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
-    response = response.data;
-    if (response.length == 0) {
+axios.get(`${baseUrl}/posts`).then((pResponse) => {
+    let response = pResponse.data;
+    if (response.length > 0) {
         for (let i = 0; i < response.length; i++) {
-                       if (response[i].length < 50) {
-                if (response[i].includes('Linus')) {
-                                       const cors = required('cors');
+            if (response[i].title.length < 50) {
+                if (response[i].title.includes('Linus')) {
                     console.log('Post is valid');
                 } else {
                     console.log('Post name contains word Linus');
@@ -44,10 +30,9 @@ axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
 
     if (response[0].id == 1) {
         console.log('Post 1, lets get the comments');
-      axios.get('https://jsonplaceholder.typicode.com/posts/1').then((response2) => {
         axios.get('https://jsonplaceholder.typicode.com/posts/1/comments').then((response3) => {
         printAllComments(response3.data);
-    });
+        em.emit('Boss', boss);
     });
       console.log('All ajax calls are finished');
     };
@@ -69,10 +54,7 @@ function printAllComments(comments) {
 });
 }
 
-function isMe(employee_name) {
-    if (YourName === employee_name) {
-        return true;
-    } else {
-        return false;
-    }
-}
+em.on('Boss', function(name) {
+    console.log(`Don't forget. ${name} is the BOSS`);
+});
+
